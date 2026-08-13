@@ -1,19 +1,92 @@
-/* Sistema base de diseño: */
+/* ================================
+   LIGHT THEME
+   ================================ */
+
 :root {
-  --primary-color: #1a202c; /* Color primario */
-  --secondary-color: #2d3748; /* Color secundario */
-  --accent-color: #4a5568; /* Color de acento */
-  --text-color: #ffffff; /* Color de texto */
-  --background-color: #f7fafc; /* Color de fondo */
-  --border-radius: 0.5rem; /* Radio de borde */
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra de caja */
+  /* Backgrounds */
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --card: #ffffff;
+
+  /* Foreground / Text */
+  --foreground: #0f172a;
+  --muted: #64748b;
+  --muted-foreground: #94a3b8;
+
+  /* Borders */
+  --border: #e2e8f0;
+
+  /* Primary */
+  --primary: #0066ff;
+  --primary-hover: #0052cc;
+  --primary-foreground: #ffffff;
+
+  /* Secondary */
+  --secondary: #e5f0ff;
+  --secondary-hover: #cce0ff;
+  --secondary-foreground: #003d99;
+
+  /* Accent */
+  --accent: #3385ff;
+  --accent-hover: #0066ff;
+  --accent-foreground: #ffffff;
+
+  /* Destructive */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  /* States */
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --error: #dc2626;
+
+  /* UI */
+  --radius: 0.5rem;
 }
 
-/*Solo define colores: */
+
+/* ================================
+   DARK THEME
+   ================================ */
+
 .dark {
-  --primary-color: #1a202c; /* Color primario */
-  --secondary-color: #2d3748; /* Color secundario */
-  --accent-color: #4a5568; /* Color de acento */
-  --text-color: #ffffff; /* Color de texto */
-  --background-color: #f7fafc; /* Color de fondo */
+  /* Backgrounds */
+  --background: #000e24;
+  --surface: #001433;
+  --card: #002966;
+
+  /* Foreground / Text */
+  --foreground: #f8fafc;
+  --muted: #94a3b8;
+  --muted-foreground: #64748b;
+
+  /* Borders */
+  --border: #003d99;
+
+  /* Primary */
+  --primary: #3385ff;
+  --primary-hover: #66a3ff;
+  --primary-foreground: #000e24;
+
+  /* Secondary */
+  --secondary: #002966;
+  --secondary-hover: #003d99;
+  --secondary-foreground: #e5f0ff;
+
+  /* Accent */
+  --accent: #0066ff;
+  --accent-hover: #3385ff;
+  --accent-foreground: #ffffff;
+
+  /* Destructive */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  /* States */
+  --success: #22c55e;
+  --warning: #fbbf24;
+  --error: #ef4444;
+
+  /* UI */
+  --radius: 0.5rem;
 }
