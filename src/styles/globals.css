@@ -2,20 +2,44 @@
 @import "./theme.css";
 
 @layer base {
+  /* 1. Suavizado de fuentes y scroll fluido */
   html {
     background-color: var(--background);
     color: var(--foreground);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     font-family: "Inter", sans-serif;
     background-color: var(--background);
     color: var(--foreground);
+    /* 2. Forzar altura mínima para evitar que el footer "flote" */
+    min-height: 100vh;
   }
 
-  img {
+  img, video, svg {
     display: block;
     max-width: 100%;
     height: auto;
+  }
+
+  /* 3. Normalizar botones e inputs */
+  button, input, textarea, select {
+    font: inherit;
+  }
+
+  /* 4. Reset de listas para navbars y grillas de productos */
+  ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* 5. Estilo de links heredado */
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }
