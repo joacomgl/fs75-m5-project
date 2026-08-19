@@ -1,7 +1,8 @@
-import { useContext, type JSX } from 'react';
+import { useContext, useEffect, type JSX } from 'react';
 import { Button } from './components/ui/Button';
-import { CartContext, useCart } from './contexts/CartContex';
+import { CartContext, useCart } from './contexts/cart/CartContext';
 import { useProducts } from './contexts/ProductsContext';
+import { getProducts } from './services/products.service';
 
 function App(): JSX.Element {
   const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -12,6 +13,12 @@ function App(): JSX.Element {
 
   //* Estados y Acciones desde CartContext:
   const {items, addToCart, removeFromCart, clearCart} = useCart();
+
+  useEffect(() => {
+    getProducts().then((data) => {
+      console.log("Productos obtenidos:", data);
+    });
+  }, []);
 
   return (
     <div className="p-8">

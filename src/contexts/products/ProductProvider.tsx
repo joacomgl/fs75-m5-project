@@ -1,15 +1,6 @@
 import { createContext, useState, useContext } from 'react';
 import type { Product } from '../types/product.types';
 
-//*Types:
-interface ProductsContextType {
-    products: Product[];
-}
-
-//*Context:
-const ProductsContext = createContext<ProductsContextType | undefined>(
-    undefined,
-);
 
 //*Provider:
 export const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
