@@ -1,16 +1,19 @@
 import type { ReactNode } from 'react';
-import { ProductsProvider } from './ProductsContext';
+import { ProductsProvider } from './products/ProductProvider.tsx';
 import { CartProvider } from './cart/CartContext';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from './Theme/ThemeProvider';
 
 export const AppProviders = ({ children }: { children: ReactNode }) => {
   return (
     <BrowserRouter>
-      <ProductsProvider>
-        <CartProvider>
-          {children}
-        </CartProvider>
-      </ProductsProvider>
+      <ThemeProvider>
+        <ProductsProvider>
+          <CartProvider>
+            {children}
+          </CartProvider>
+        </ProductsProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };
