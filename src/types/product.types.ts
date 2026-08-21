@@ -1,4 +1,4 @@
-export type CategoryId = "mouse" | "keyboard" | "headset" | "monitor" | "chair";
+﻿export type CategoryId = "mouse" | "keyboard" | "headset" | "monitor" | "chair";
 
 export interface Product {
   id: string;
@@ -9,7 +9,6 @@ export interface Product {
   image: string;
   categoryId: CategoryId;
   stock: number;
-  
   createdAt: Date;
   updatedAt: Date;
 }
