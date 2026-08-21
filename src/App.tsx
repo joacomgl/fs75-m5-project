@@ -1,5 +1,5 @@
 ﻿import { type JSX } from "react/jsx-runtime";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { Header }             from "./components/common/Header";
 import { ProtectedRoute }     from "./components/router/ProtectedRoute";
 import { AdminRoute }         from "./components/router/AdminRoute";
@@ -17,37 +17,40 @@ import { Orders }             from "./pages/Orders";
 import { OrderDetail }        from "./pages/OrderDetail";
 import { OrderConfirmation }  from "./pages/OrderConfirmation";
 
+/** Standard layout with top header for all customer/public views */
+function StoreLayout() {
+  return (
+    <>
+      <Header />
+      <main className="min-h-screen bg-[var(--background)]">
+        <Outlet />
+      </main>
+    </>
+  );
+}
+
 export default function App(): JSX.Element {
   return (
     <Routes>
-      {/* ── Client Store Layout (with Top Header) ──────────────── */}
-      <Route
-        element={
-          <>
-            <Header />
-            <div className="min-h-screen bg-[var(--background)]">
-              {/* Children rendered by nested routes */}
-            </div>
-          </>
-        }
-      >
-        {/* Public routes */}
-        <Route path="/"                            element={<><Header /><Home /></>} />
-        <Route path="/login"                       element={<><Header /><Login /></>} />
-        <Route path="/register"                    element={<><Header /><Register /></>} />
-        <Route path="/unauthorized"                element={<><Header /><Unauthorized /></>} />
-        <Route path="/products/:id"                element={<><Header /><ProductDetail /></>} />
+      {/* ── Client Store Layout (Header + Content via Outlet) ───── */}
+      <Route element={<StoreLayout />}>
+        {/* Public routes (no auth required) */}
+        <Route path="/"                            element={<Home />} />
+        <Route path="/login"                       element={<Login />} />
+        <Route path="/register"                    element={<Register />} />
+        <Route path="/unauthorized"                element={<Unauthorized />} />
+        <Route path="/products/:id"                element={<ProductDetail />} />
 
-        {/* Protected routes (authenticated customers) */}
+        {/* Protected customer routes (auth required) */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/checkout"                     element={<><Header /><Checkout /></>} />
-          <Route path="/orders"                       element={<><Header /><Orders /></>} />
-          <Route path="/orders/:orderId"              element={<><Header /><OrderDetail /></>} />
-          <Route path="/orders/confirmation/:orderId" element={<><Header /><OrderConfirmation /></>} />
+          <Route path="/checkout"                     element={<Checkout />} />
+          <Route path="/orders"                       element={<Orders />} />
+          <Route path="/orders/:orderId"              element={<OrderDetail />} />
+          <Route path="/orders/confirmation/:orderId" element={<OrderConfirmation />} />
         </Route>
       </Route>
 
-      {/* ── Admin Portal Layout (Differentiated UI with Sidebar) ──── */}
+      {/* ── Admin Portal Layout (Differentiated Sidebar UI) ─────── */}
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
