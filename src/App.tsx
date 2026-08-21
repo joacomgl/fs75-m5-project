@@ -1,25 +1,22 @@
-import type { JSX } from "react/jsx-runtime";
-import { useProducts } from "./contexts/products/useProducts.ts";
+import { type JSX } from "react/jsx-runtime";
+import { ProductList } from "./components/common/ProductList";
+import { useTheme } from "./contexts/Theme/useTheme";
+import { Button } from "./components/ui/Button";
 
-function App(): JSX.Element {
-  const { products, loading } = useProducts();
-  
-  if (loading) return <div>Cargando...</div>;
+export default function App(): JSX.Element {
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex flex-col items-center">
-      <h1>Listado de Productos</h1>
-      {products.map((product) => (
-        <button
-        key={product.id}
-        className ="m-2"
-        onClick={() => window.confirm("Agregar al carrito")}
-      >
-       {product.name} - ${product.price} Agregar al carrito
-       </button>
-      ))}
+    <div style={{ padding: "2rem" }}>
+      <button onClick={toggleTheme}>
+        {theme === "dark" ? "☀️Claro" : "🌑Oscuro"}
+      </button>
+      <h1>Bienvenido al E-commerce</h1>
+      <h2>Componentes reutilizables</h2>
+      <hr style={{ margin: "1rem 0" }} />
+
+      <ProductList />
+
     </div>
   );
 }
-
-export default App;

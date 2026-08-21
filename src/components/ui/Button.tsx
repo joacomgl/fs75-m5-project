@@ -1,38 +1,48 @@
-import type { ButtonHTMLAttributes } from "react";
+type ButtonSize = 'small' | 'medium' | 'large';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "accent";
-}
+type SolidButtonProps = {
+  variant: 'solid';
+  onClick: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+};
 
-export function Button({
-  variant = "primary",
-  className = "",
-  ...props
-}: ButtonProps) {
-  const variants = {
-    primary:
-      "bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--primary-hover)]",
-    secondary:
-      "bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary-hover)]",
-    accent:
-      "bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]",
-  };
+type LinkButtonProps = {
+  variant: 'link';
+  href: string;
+  target?: "_self" | "_blank" | "_parent" | "_top";
+};
 
+type SharedProps = {
+  size?: ButtonSize;
+  children: React.ReactNode;
+};
+
+type ButtonProps = (SolidButtonProps | LinkButtonProps) & SharedProps;
+
+export function Button(props: ButtonProps) {
+  const size = props.size ?? "medium"
+
+  if (props.variant === "link") {
+    return (
+      <a
+        href={props.href}
+        target={props.target}
+      >
+        {props.children}
+      </a>
+    );
+  }
+
+  const isDisabled = props.disabled || props.loading;
   return (
     <button
-      className={`
-        inline-flex
-        items-center
-        justify-center
-        rounded-[var(--radius)]
-        px-4
-        py-2
-        font-medium
-        transition-colors
-        ${variants[variant]}
-        ${className}
-      `}
-      {...props}
-    />
+      type="button"
+      className={`btn btn-solid btn-${size}`}
+      disabled={isDisabled}
+      onClick={props.onClick}
+    >
+      {props.loading ? "Cargando..." : props.children}
+    </button>
   );
 }
