@@ -1,9 +1,9 @@
 ﻿import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth }       from "../../contexts/auth/useAuth";
-import { useTheme }      from "../../contexts/Theme/useTheme";
-import { useCart }       from "../../contexts/cart/CartContext";
-import { CartDrawer }    from "./CartDrawer";
+import { useAuth }    from "../../contexts/auth/useAuth";
+import { useTheme }   from "../../contexts/Theme/useTheme";
+import { useCart }    from "../../contexts/cart/CartContext";
+import { CartDrawer } from "./CartDrawer";
 
 export function Header() {
   const { user, role, signOut } = useAuth();
@@ -17,26 +17,31 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
 
           {/* Brand */}
-          <Link to="/" className="font-bold text-[var(--primary)] text-lg tracking-tight flex items-center gap-2">
+          <Link to="/" className="font-bold text-[var(--primary)] text-lg tracking-tight flex items-center gap-1.5 shrink-0">
             <span>⚡</span> TechStore
           </Link>
 
           {/* Nav */}
-          <nav className="hidden sm:flex items-center gap-4 text-sm font-medium">
+          <nav className="hidden sm:flex items-center gap-5 text-sm font-medium">
             <Link to="/" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">
               Catálogo
             </Link>
+            {user && (
+              <Link to="/orders" id="nav-orders" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">
+                Mis órdenes
+              </Link>
+            )}
             {role === "admin" && (
-              <Link to="/admin" className="text-[var(--primary)] hover:underline font-semibold">
+              <Link to="/admin" className="text-[var(--primary)] font-semibold hover:underline">
                 Admin ↗
               </Link>
             )}
           </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
 
-            {/* Theme toggle */}
+            {/* Theme */}
             <button
               id="toggle-theme"
               onClick={toggleTheme}
@@ -46,7 +51,7 @@ export function Header() {
               {theme === "dark" ? "☀️" : "🌙"}
             </button>
 
-            {/* Cart icon */}
+            {/* Cart */}
             <button
               id="open-cart"
               onClick={() => setCartOpen(true)}
@@ -67,8 +72,8 @@ export function Header() {
 
             {/* Auth */}
             {user ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-[var(--muted)] hidden md:block max-w-[120px] truncate">
+              <div className="flex items-center gap-2 ml-1">
+                <span className="text-sm text-[var(--muted)] hidden lg:block max-w-[120px] truncate">
                   {user.displayName ?? user.email}
                 </span>
                 <button
@@ -80,7 +85,7 @@ export function Header() {
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 ml-1">
                 <Link
                   id="btn-login"
                   to="/login"
@@ -101,7 +106,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* Cart Drawer (rendered outside header so it overlays the full page) */}
       <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
     </>
   );
